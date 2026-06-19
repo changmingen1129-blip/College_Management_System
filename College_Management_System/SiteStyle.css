@@ -1,0 +1,126 @@
+﻿body {
+    background-color: #f4f6f9;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #1f2937;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+    padding: 14px 25px;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.page-title {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
+.main-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 8px 18px;
+}
+
+.table {
+    background: white;
+}
+
+    .table th {
+        background-color: #1f2937;
+        color: white;
+    }
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* THEME BUTTON */
+.theme-btn {
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+/* DARK MODE */
+body.dark-mode {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+    body.dark-mode .main-card,
+    body.dark-mode .card {
+        background-color: #1f2937;
+        color: #f9fafb;
+    }
+
+    body.dark-mode .page-title {
+        color: #f9fafb;
+    }
+
+    body.dark-mode .form-label {
+        color: #e5e7eb;
+    }
+
+    body.dark-mode .text-muted {
+        color: #d1d5db !important;
+    }
+
+    body.dark-mode .form-control {
+        background-color: #374151;
+        color: #ffffff;
+        border-color: #4b5563;
+    }
+
+        body.dark-mode .form-control::placeholder {
+            color: #d1d5db;
+        }
+
+    body.dark-mode select.form-control {
+        background-color: #374151;
+        color: #ffffff;
+        border-color: #4b5563;
+    }
+
+    body.dark-mode .table {
+        background-color: #1f2937;
+        color: #ffffff;
+    }
+
+        body.dark-mode .table td {
+            background-color: #1f2937;
+            color: #ffffff;
+            border-color: #374151;
+        }
+
+        body.dark-mode .table th {
+            background-color: #111827;
+            color: #ffffff;
+            border-color: #374151;
+        }
+
+    body.dark-mode .border {
+        border-color: #4b5563 !important;
+    }
+
+    body.dark-mode .bg-light {
+        background-color: #374151 !important;
+    }

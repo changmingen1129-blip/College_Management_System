@@ -1,0 +1,687 @@
+﻿<%@ Master Language="C#"
+AutoEventWireup="true"
+CodeBehind="StudentMaster.Master.cs"
+Inherits="College_Management_System.StudentMaster" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+
+<title>Student Portal</title>
+
+<meta name="viewport"
+    content="width=device-width, initial-scale=1" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet" />
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: #f4f7fb;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .student-wrapper {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .student-sidebar {
+        width: 260px;
+        background: linear-gradient(180deg, #0f766e, #0f172a);
+        color: white;
+        padding: 25px 18px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+    }
+
+    .student-sidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .student-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .student-sidebar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+    }
+
+    .sidebar-logo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .sidebar-logo .icon-box {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 30px;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+    }
+
+    .sidebar-logo h4 {
+        font-weight: 800;
+        margin-bottom: 3px;
+    }
+
+    .sidebar-logo small {
+        color: #cbd5e1;
+    }
+
+    .student-information {
+        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 16px;
+        padding: 13px;
+        margin-bottom: 22px;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .student-avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 13px;
+        background: rgba(255, 255, 255, 0.17);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        font-size: 18px;
+    }
+
+    .student-details {
+        min-width: 0;
+    }
+
+    .student-name {
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 750;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .student-role {
+        color: #cbd5e1;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    .sidebar-menu {
+        flex: 1;
+    }
+
+    .menu-section-label {
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.9px;
+        text-transform: uppercase;
+        padding: 0 13px;
+        margin: 17px 0 9px;
+    }
+
+    .sidebar-menu a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 13px 16px;
+        border-radius: 14px;
+        margin-bottom: 8px;
+        transition: all 0.25s ease;
+        font-weight: 600;
+    }
+
+    .sidebar-menu a i {
+        width: 20px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .sidebar-menu a:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        transform: translateX(4px);
+    }
+
+    .sidebar-menu a.active {
+        background: rgba(255, 255, 255, 0.20);
+        color: #ffffff;
+        transform: translateX(4px);
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.14);
+    }
+
+    .sidebar-menu a.active::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        width: 4px;
+        height: 25px;
+        border-radius: 10px;
+        background: #5eead4;
+    }
+
+    .sidebar-footer {
+        margin-top: 25px;
+    }
+
+    .sidebar-footer .btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px;
+        font-weight: 750;
+        transition: 0.25s;
+    }
+
+    .sidebar-footer .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 17px rgba(15, 23, 42, 0.18);
+    }
+
+    .student-main {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+        min-height: 100vh;
+        padding: 28px;
+    }
+
+    .mobile-header {
+        display: none;
+        background: linear-gradient(135deg, #0f766e, #0f172a);
+        color: white;
+        padding: 14px 18px;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1100;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+    }
+
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+    }
+
+    .mobile-menu-button {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        font-size: 19px;
+    }
+
+    .sidebar-overlay {
+        display: none;
+    }
+
+    @media (max-width: 900px) {
+        .mobile-header {
+            display: flex;
+        }
+
+        .student-wrapper {
+            display: block;
+        }
+
+        .student-sidebar {
+            width: 280px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 12px 0 30px rgba(15, 23, 42, 0.25);
+        }
+
+        .student-sidebar.mobile-open {
+            transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .student-main {
+            margin-left: 0;
+            width: 100%;
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .student-main {
+            padding: 15px;
+        }
+
+        .student-sidebar {
+            width: 86%;
+            max-width: 300px;
+        }
+    }
+</style>
+
+<asp:ContentPlaceHolder ID="HeadContent"
+    runat="server">
+</asp:ContentPlaceHolder>
+
+
+</head>
+
+<body>
+
+
+<form id="form1"
+    runat="server">
+
+    <div class="mobile-header">
+
+        <div class="mobile-brand">
+
+            <i class="fa-solid fa-user-graduate"></i>
+
+            <span>Student Portal</span>
+
+        </div>
+
+        <button type="button"
+            class="mobile-menu-button"
+            onclick="toggleStudentSidebar()"
+            aria-label="Open navigation menu">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </div>
+
+    <div id="sidebarOverlay"
+        class="sidebar-overlay"
+        onclick="closeStudentSidebar()">
+    </div>
+
+    <div class="student-wrapper">
+
+        <aside id="studentSidebar"
+            class="student-sidebar">
+
+            <div class="sidebar-logo">
+
+                <div class="icon-box">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+                <h4>Student Portal</h4>
+
+                <small>
+                    College Management System
+                </small>
+
+            </div>
+
+            <div class="student-information">
+
+                <div class="student-avatar">
+
+                    <asp:Label ID="lblMasterStudentInitial"
+                        runat="server"
+                        Text="S">
+                    </asp:Label>
+
+                </div>
+
+                <div class="student-details">
+
+                    <div class="student-name">
+
+                        <asp:Label ID="lblMasterStudentName"
+                            runat="server"
+                            Text="Student">
+                        </asp:Label>
+
+                    </div>
+
+                    <div class="student-role">
+                        Student Account
+                    </div>
+
+                </div>
+
+            </div>
+
+            <nav class="sidebar-menu">
+
+                <div class="menu-section-label">
+                    Main
+                </div>
+
+                <a href="<%= ResolveUrl("~/StudentDashboard.aspx") %>"
+                    data-page="StudentDashboard.aspx">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentCourses.aspx") %>"
+                    data-page="StudentCourses.aspx">
+
+                    <i class="fa-solid fa-book"></i>
+
+                    <span>My Courses</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentEnrolment.aspx") %>"
+                    data-page="StudentEnrolment.aspx">
+
+                    <i class="fa-solid fa-clipboard-list"></i>
+
+                    <span>Enrolment</span>
+
+                </a>
+
+                <div class="menu-section-label">
+                    Academic
+                </div>
+
+                <a href="<%= ResolveUrl("~/StudentTimetable.aspx") %>"
+                    data-page="StudentTimetable.aspx">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <span>Timetable</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentAttendance.aspx") %>"
+                    data-page="StudentAttendance.aspx">
+
+                    <i class="fa-solid fa-clipboard-check"></i>
+
+                    <span>Attendance</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentResult.aspx") %>"
+                    data-page="StudentResult.aspx">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>Results</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentAnnouncements.aspx") %>"
+                    data-page="StudentAnnouncements.aspx">
+
+                    <i class="fa-solid fa-bullhorn"></i>
+
+                    <span>Announcements</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentAcademicCalendar.aspx") %>"
+                    data-page="StudentAcademicCalendar.aspx">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <span>Academic Calendar</span>
+
+                </a>
+
+                <div class="menu-section-label">
+                    Finance and Account
+                </div>
+
+                <a href="<%= ResolveUrl("~/StudentFees.aspx") %>"
+                    data-page="StudentFees.aspx"
+                    data-related-pages="StudentPayment.aspx">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <span>My Fees</span>
+
+                </a>
+
+                <a href="<%= ResolveUrl("~/StudentProfile.aspx") %>"
+                    data-page="StudentProfile.aspx">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <span>Profile</span>
+
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <asp:Button ID="btnMasterLogout"
+                    runat="server"
+                    Text="Logout"
+                    CssClass="btn btn-light w-100"
+                    CausesValidation="false"
+                    OnClick="btnMasterLogout_Click" />
+
+            </div>
+
+        </aside>
+
+        <main class="student-main">
+
+            <asp:ContentPlaceHolder ID="MainContent"
+                runat="server">
+            </asp:ContentPlaceHolder>
+
+        </main>
+
+    </div>
+
+</form>
+
+<script>
+    function getCurrentPageName() {
+        var path =
+            window.location.pathname;
+
+        var page =
+            path.split("/").pop();
+
+        if (!page) {
+            return "";
+        }
+
+        return page.toLowerCase();
+    }
+
+    function setActiveMenu() {
+        var currentPage =
+            getCurrentPageName();
+
+        var links =
+            document.querySelectorAll(
+                ".sidebar-menu a"
+            );
+
+        links.forEach(function (link) {
+            var mainPage =
+                link.getAttribute(
+                    "data-page"
+                );
+
+            var relatedPages =
+                link.getAttribute(
+                    "data-related-pages"
+                );
+
+            var isActive =
+                false;
+
+            if (
+                mainPage
+                && mainPage.toLowerCase()
+                === currentPage
+            ) {
+                isActive = true;
+            }
+
+            if (
+                !isActive
+                && relatedPages
+            ) {
+                var relatedPageList =
+                    relatedPages
+                        .split(",");
+
+                relatedPageList.forEach(
+                    function (relatedPage) {
+                        if (
+                            relatedPage
+                                .trim()
+                                .toLowerCase()
+                            === currentPage
+                        ) {
+                            isActive =
+                                true;
+                        }
+                    }
+                );
+            }
+
+            if (isActive) {
+                link.classList.add(
+                    "active"
+                );
+            }
+            else {
+                link.classList.remove(
+                    "active"
+                );
+            }
+        });
+    }
+
+    function toggleStudentSidebar() {
+        var sidebar =
+            document.getElementById(
+                "studentSidebar"
+            );
+
+        var overlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
+
+        sidebar.classList.toggle(
+            "mobile-open"
+        );
+
+        overlay.classList.toggle(
+            "visible"
+        );
+    }
+
+    function closeStudentSidebar() {
+        var sidebar =
+            document.getElementById(
+                "studentSidebar"
+            );
+
+        var overlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
+
+        sidebar.classList.remove(
+            "mobile-open"
+        );
+
+        overlay.classList.remove(
+            "visible"
+        );
+    }
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+            setActiveMenu();
+
+            var links =
+                document.querySelectorAll(
+                    ".sidebar-menu a"
+                );
+
+            links.forEach(
+                function (link) {
+                    link.addEventListener(
+                        "click",
+                        closeStudentSidebar
+                    );
+                }
+            );
+        }
+    );
+
+    window.addEventListener(
+        "resize",
+        function () {
+            if (
+                window.innerWidth > 900
+            ) {
+                closeStudentSidebar();
+            }
+        }
+    );
+</script>
+
+
+</body>
+</html>
