@@ -1,6 +1,7 @@
 # College_Management_System
 
 DUMMY STUDENT ACCOUNT TEST
+
 alice.lee@student.com
 123456
 
